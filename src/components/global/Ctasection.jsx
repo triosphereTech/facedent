@@ -2,30 +2,19 @@
 
 import { ArrowUpRight, Phone } from "lucide-react";
 
+const containerClassName =
+  "relative mx-auto flex max-w-7xl flex-col items-center gap-8 overflow-hidden rounded-[32px] bg-[#0E2A47] px-6 py-10 sm:px-10 lg:flex-row lg:justify-between lg:gap-6 lg:py-8";
+
+const secondaryButtonClassName =
+  "flex h-[52px] items-center gap-3 rounded-full border border-white/25 px-6 text-white transition-all duration-300 hover:border-white/50 hover:bg-white/5";
+
+const primaryButtonClassName =
+  "flex h-[52px] items-center gap-3 rounded-full bg-white pl-6 pr-2 text-[#0E2A47] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(255,255,255,0.15)] active:scale-[0.98]";
+
 const CtaSection = () => {
   return (
     <section className="bg-[#fafaf7] px-4 pb-5 pt-4 sm:px-6 lg:px-8">
-      <div
-        className="
-          relative
-          mx-auto
-          flex
-          max-w-7xl
-          flex-col
-          items-center
-          gap-8
-          overflow-hidden
-          rounded-[32px]
-          bg-[#0E2A47]
-          px-6
-          py-10
-          sm:px-10
-          lg:flex-row
-          lg:justify-between
-          lg:gap-6
-          lg:py-8
-        "
-      >
+      <div className={containerClassName}>
         {/* AMBIENT GLOW */}
         <div className="pointer-events-none absolute -left-16 -top-24 h-[260px] w-[260px] rounded-full bg-[#2DBBC4]/25 blur-[100px]" />
         <div className="pointer-events-none absolute -bottom-24 -right-16 h-[260px] w-[260px] rounded-full bg-[#2DBBC4]/15 blur-[100px]" />
@@ -48,21 +37,7 @@ const CtaSection = () => {
         <div className="relative flex flex-col items-center gap-3 sm:flex-row">
           <a
             href="tel:+910000000000"
-            className="
-              flex
-              h-[52px]
-              items-center
-              gap-3
-              rounded-full
-              border
-              border-white/25
-              px-6
-              text-white
-              transition-all
-              duration-300
-              hover:border-white/50
-              hover:bg-white/5
-            "
+            className={secondaryButtonClassName}
           >
             <Phone size={16} className="text-[#2DBBC4]" />
             <span className="text-[14px] font-medium whitespace-nowrap">
@@ -71,22 +46,7 @@ const CtaSection = () => {
           </a>
 
           <button
-            className="
-              flex
-              h-[52px]
-              items-center
-              gap-3
-              rounded-full
-              bg-white
-              pl-6
-              pr-2
-              text-[#0E2A47]
-              transition-all
-              duration-300
-              hover:scale-[1.02]
-              hover:shadow-[0_10px_25px_rgba(255,255,255,0.15)]
-              active:scale-[0.98]
-            "
+            className={primaryButtonClassName}
           >
             <span className="text-[14px] font-semibold whitespace-nowrap">
               Book Appointment

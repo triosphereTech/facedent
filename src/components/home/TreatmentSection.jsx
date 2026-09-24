@@ -3,23 +3,43 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import {
   ArrowRight,
-  Grid2x2,
   HeartPulse,
   ScanFace,
   Sparkles,
   ShieldPlus,
+  Smile,
+  Bone,
+  CircleDot,
 } from "lucide-react";
 import TreatmentHero from "./Treatmenthero";
 import RoundedImage from "@/components/ui/RoundedImage";
 import { treatmentImages } from "@/data/unsplashImages";
 
 const categories = [
-  "All Treatments",
-  "Dental Care",
-  "Facial Surgery",
-  "Smile Design",
-  "Jaw Correction",
-  "Dental Implants",
+  {
+    name: "All Treatments",
+    icon: CircleDot,
+  },
+  {
+    name: "Dental Care",
+    icon: HeartPulse,
+  },
+  {
+    name: "Facial Surgery",
+    icon: ScanFace,
+  },
+  {
+    name: "Smile Design",
+    icon: Smile,
+  },
+  {
+    name: "Jaw Correction",
+    icon: Bone,
+  },
+  {
+    name: "Dental Implants",
+    icon: ShieldPlus,
+  },
 ];
 
 const treatments = [
@@ -91,32 +111,48 @@ const treatments = [
 
 const TreatmentCategoryGrid = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [pillStyle, setPillStyle] = useState({ left: 0, width: 0 });
+  const [pillStyle, setPillStyle] = useState({
+    left: 0,
+    width: 0,
+  });
+
   const buttonRefs = useRef([]);
 
-  const activeCategory = categories[activeIndex];
+  const activeCategory = categories[activeIndex].name;
 
   const visibleTreatments =
     activeIndex === 0
       ? treatments
-      : treatments.filter((item) => item.categories.includes(activeCategory));
+      : treatments.filter((item) =>
+          item.categories.includes(activeCategory)
+        );
 
   const measurePill = () => {
     const btn = buttonRefs.current[activeIndex];
+
     if (btn) {
-      setPillStyle({ left: btn.offsetLeft, width: btn.offsetWidth });
+      setPillStyle({
+        left: btn.offsetLeft,
+        width: btn.offsetWidth,
+      });
     }
   };
 
   useLayoutEffect(() => {
     measurePill();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
 
   useLayoutEffect(() => {
     measurePill();
+
     window.addEventListener("resize", measurePill);
-    return () => window.removeEventListener("resize", measurePill);
+
+    return () => {
+      window.removeEventListener("resize", measurePill);
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -124,42 +160,42 @@ const TreatmentCategoryGrid = () => {
     <>
       {/* CATEGORY BAR */}
       <div className="mt-16 overflow-x-auto">
-        <div
-          className="relative flex min-w-max items-center rounded-full border border-[#dbe7ea] bg-white p-2"
-        >
+        <div className="relative flex w-fit items-center rounded-full border border-[#dbe7ea] bg-white p-2">
           {/* SLIDING PILL */}
           <div
             className="absolute top-2 bottom-2 rounded-full bg-[#f3f8f8] transition-all duration-300 ease-out"
-            style={{ left: pillStyle.left, width: pillStyle.width }}
+            style={{
+              left: pillStyle.left,
+              width: pillStyle.width,
+            }}
           />
 
-          {categories.map((item, index) => (
-            <button
-              key={item}
-              ref={(el) => {
-                buttonRefs.current[index] = el;
-              }}
-              onClick={() => setActiveIndex(index)}
-              className={`relative z-10 flex items-center gap-2 whitespace-nowrap rounded-full px-5 py-3 text-[14px] font-medium transition-colors duration-300 ${ index === activeIndex ? "text-[#0E2A47]" : "text-[#6E7C87] hover:text-[#0E2A47]" }`}
-            >
-              {index === activeIndex && <Grid2x2 size={16} />}
-              {item}
-            </button>
-          ))}
-        </div>
-      </div>
+          {categories.map((item, index) => {
+            const CategoryIcon = item.icon;
 
-      {/* GRID TITLE */}
-      <div className="mt-14 flex items-center gap-3">
-        <div
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eef8f8]"
-        >
-          <Grid2x2 size={18} className="text-[#2DBBC4]" />
-        </div>
+            return (
+              <button
+                key={item.name}
+                ref={(el) => {
+                  buttonRefs.current[index] = el;
+                }}
+                onClick={() => setActiveIndex(index)}
+                className={`relative z-10 flex items-center gap-2 whitespace-nowrap rounded-full px-5 py-3 text-[14px] font-medium transition-colors duration-300 ${
+                  index === activeIndex
+                    ? "text-[#0E2A47]"
+                    : "text-[#6E7C87] hover:text-[#0E2A47]"
+                }`}
+              >
+                <CategoryIcon
+                  size={16}
+                  strokeWidth={1.7}
+                />
 
-        <h3 className="text-[26px] font-semibold tracking-[-1px] text-[#0E2A47] sm:text-[34px]">
-          {activeCategory}
-        </h3>
+                {item.name}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* TREATMENT GRID */}
@@ -184,6 +220,7 @@ const TreatmentCategoryGrid = () => {
                 {/* CONTENT */}
                 <div className="flex flex-col justify-between pb-10 sm:pb-0">
                   <div>
+                    {/* TREATMENT ICON */}
                     <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#eef8f8]">
                       <Icon
                         strokeWidth={1.5}
@@ -191,10 +228,12 @@ const TreatmentCategoryGrid = () => {
                       />
                     </div>
 
+                    {/* TITLE */}
                     <h4 className="text-[18px] font-semibold text-[#0E2A47]">
                       {item.title}
                     </h4>
 
+                    {/* DESCRIPTION */}
                     <p className="mt-4 text-[14px] leading-7 text-[#6E7C87]">
                       {item.desc}
                     </p>
@@ -212,6 +251,7 @@ const TreatmentCategoryGrid = () => {
           );
         })}
 
+        {/* EMPTY STATE */}
         {visibleTreatments.length === 0 && (
           <p className="text-[14px] text-[#6E7C87]">
             No treatments found in this category yet.
@@ -227,6 +267,7 @@ const TreatmentSection = () => {
     <section className="bg-[#fafaf7] py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <TreatmentHero />
+
         <TreatmentCategoryGrid />
       </div>
     </section>
