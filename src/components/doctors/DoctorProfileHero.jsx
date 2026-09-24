@@ -37,7 +37,7 @@ const DEFAULT_DOCTORS = [
     description:
       "Focused on preventive and restorative dentistry, with a calm, unhurried approach to routine care, cosmetic treatment and long-term oral health.",
     image: {
-      src: "/images/doctors/doctor-dentist.jpg",
+      src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdG9yfGVufDB8fDB8fHww",
       alt: "Portrait of Dr. Aarav Shah",
     },
     credentials: [
@@ -53,7 +53,8 @@ const DEFAULT_DOCTORS = [
     description:
       "Treats conditions of the jaw, face and mouth, from impacted teeth and jaw alignment to facial trauma and reconstructive surgery.",
     image: {
-      src: "/images/doctors/doctor-maxillofacial.jpg",
+       src: "https://img.magnific.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80",
+     
       alt: "Portrait of Dr. Meera Desai",
     },
     credentials: [
